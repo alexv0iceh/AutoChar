@@ -4,12 +4,12 @@ Stable Diffusion WebUI extension for fast and easy automatic face and eyes inpai
 AutoChar Control Panel is a custom script for Stable Diffusion WebUI by Automatic1111 made to help newbies and enthusiasts alike achieve great pictures with less effort.
 Basically, it's automation of my basic SD workflow for illustrations (check 'em here: https://t.me/dreamforge_tg) and also my Bachelor graduation work, for which I got an A.
 
-INSTALLATION:
-Just put script and .onnx face recognition model in your stable-diffusion-webui/scripts folder
+_**INSTALLATION:**_
+**Just put script and .onnx face recognition model in your stable-diffusion-webui/scripts folder**
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/798a92e9-0105-4b39-85b6-5b89048a108e)
 
-Functions as of now:
+_Functions as of now:_
 - Automatic 2-stage upscale
 - Automatic face and eyes inpaint, for all detected faces on image
 - Custom filtering function to help reduce noise on first generation and raise sharpness of the image before upscaling
@@ -19,7 +19,7 @@ Functions as of now:
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/2b60ba4f-86af-4c53-a4f3-2d85d3f03e10)
 
 
-Future functions, feel free to wait or suggest your code:
+_Future functions, feel free to wait or suggest your code:_
 - Adding anime face recognition model (sadly, it will kinda break or make it less time efficient to upscale eyes)
 - More elegant implementation for img2img (it works just fine now, but generates lowres picture on first step nonetheless)
 - ControlNet fixation of first/second generation to preserve shapes through upscale better
@@ -29,7 +29,7 @@ Future functions, feel free to wait or suggest your code:
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/4da581ed-3e00-4abc-88e3-f41710f37cee)
 
-Known issues, also feel free to suggest your fixes:
+_Known issues, also feel free to suggest your fixes:_
 - Poor for using on anime arts, can't detect faces on them
 - Sometimes, it finds face on character's breasts or armpits, fix is coming, but not today, so brace yourself for some occasional body horror (but you can see ALL steps in your history, so it's not really a big deal)
 - Don't select 4x-UltraSharp upscaler if you don't have one (if so, get it here https://mega.nz/folder/qZRBmaIY#nIG8KyWFcGNTuMX_XNbJ_g)
