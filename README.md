@@ -38,6 +38,9 @@ _Future functions, feel free to wait or suggest your code:_
 - Selecting flat color for init image, would be great in achieving darker pictures with black or grey init, as well as setting color theme of image
 - Integration of postprocessing extras upscale and custom effects, such as noise, vignette or watermarks
 - Usage of SD upscale rather base img2img for second step
+- 
+![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/dca5b859-f464-4e20-b9b9-a6ed9516bd48)
+
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/4da581ed-3e00-4abc-88e3-f41710f37cee)
 
