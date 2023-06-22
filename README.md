@@ -7,7 +7,7 @@ Basically, it's automation of my basic SD workflow for illustrations (check 'em 
 INSTALLATION:
 Just put script and .onnx face recognition model in your stable-diffusion-webui/scripts folder
 
-![alt text](https://imgur.com/lyhPOEE)
+![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/4da581ed-3e00-4abc-88e3-f41710f37cee)
 
 Functions as of now:
 - Automatic 2-stage upscale
@@ -15,6 +15,9 @@ Functions as of now:
 - Custom filtering function to help reduce noise on first generation and raise sharpness of the image before upscaling
 - For even higher quality, you can toggle face and eyes inpaint in between upscaling steps with little impact on generation time
 - If you're really heavy on your LORA's usage, you can toggle CFG scale lowering for face inpaint to avoid burning
+
+![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/2b60ba4f-86af-4c53-a4f3-2d85d3f03e10)
+
 
 Future functions, feel free to wait or suggest your code:
 - Adding anime face recognition model (sadly, it will kinda break or make it less time efficient to upscale eyes)
