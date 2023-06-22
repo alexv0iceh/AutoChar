@@ -19,6 +19,13 @@ _Functions as of now:_
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/2b60ba4f-86af-4c53-a4f3-2d85d3f03e10)
 
+_Algorithm itself:_
+- Txt2img generation in chosen resolution
+- High-res fix (default: x1.2 on 0.55 denoising strength) to boost details and gain sharpness
+- [Optional, "on" by default] Filtering with chosen strength (default: 0.5, less is better for realistic or smooth-rendered images)
+- [Optional, "off" by default] Automatic inpainting of face and eyes with chosen parameters (default: 0.2 denoising strength)
+- Img2img (default: x1.5 from first generation on 0.3 denoising strength)
+- Automatic inpainting of face and eyes with chosen parameters (default: 0.2 denoising strength)
 
 _Future functions, feel free to wait or suggest your code:_
 - Adding anime face recognition model (sadly, it will kinda break or make it less time efficient to upscale eyes)
