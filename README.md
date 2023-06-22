@@ -7,6 +7,8 @@ Basically, it's automation of my basic SD workflow for illustrations (check 'em 
 INSTALLATION:
 Just put script and .onnx face recognition model in your stable-diffusion-webui/scripts folder
 
+![alt text](https://imgur.com/lyhPOEE)
+
 Functions as of now:
 - Automatic 2-stage upscale
 - Automatic face and eyes inpaint, for all detected faces on image
