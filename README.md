@@ -3,6 +3,7 @@ Stable Diffusion WebUI extension for fast and easy automatic face and eyes inpai
 
 AutoChar Control Panel is a custom script for Stable Diffusion WebUI by Automatic1111 made to help newbies and enthusiasts alike achieve great pictures with less effort.
 Basically, it's automation of my basic SD workflow for illustrations (check 'em here: https://t.me/dreamforge_tg) and also my Bachelor graduation work, for which I got an A.
+So, let us enjoy the open beta!
 
 _**INSTALLATION:**_
 **Just put script and .onnx face recognition model in your stable-diffusion-webui/scripts folder**
