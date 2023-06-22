@@ -37,7 +37,8 @@ _Algorithm itself:_
 
 _Future functions, feel free to wait or suggest your code:_
 - Adding anime face recognition model (sadly, it will kinda break or make it less time efficient to upscale eyes)
-- More elegant implementation for img2img (it works just fine now, but generates lowres picture on first step nonetheless)
+- More elegant implementation for img2img (it works just fine now, but the inteface is the same when it should be different)
+- Add automatic head area hightlighting with added contrast and brightness
 - Move information from terminal to textbox in WebUI
 - ControlNet fixation of first/second generation to preserve shapes through upscale better
 - Selecting flat color for init image, would be great in achieving darker pictures with black or grey init, as well as setting color theme of image
