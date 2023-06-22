@@ -5,8 +5,11 @@ AutoChar Control Panel is a custom script for Stable Diffusion WebUI by Automati
 Basically, it's automation of my basic SD workflow for illustrations (check 'em here: https://t.me/dreamforge_tg) and also my Bachelor graduation work, for which I got an A.
 So, let us enjoy the open beta!
 
-_**INSTALLATION:**_
+_**!! INSTALLATION !!:**_
 **Just put script and .onnx face recognition model in your stable-diffusion-webui/scripts folder**
+
+_**!!  USAGE  !!:**_
+Just go to your **txt2img** tab, write prompt, choose basic parameters (sampler, steps, CFG, etc), choose AutoChar in Scripts falling menu, press Generate and enjoy
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/798a92e9-0105-4b39-85b6-5b89048a108e)
 
