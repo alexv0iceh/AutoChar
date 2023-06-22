@@ -7,7 +7,7 @@ Basically, it's automation of my basic SD workflow for illustrations (check 'em 
 INSTALLATION:
 Just put script and .onnx face recognition model in your stable-diffusion-webui/scripts folder
 
-![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/4da581ed-3e00-4abc-88e3-f41710f37cee)
+![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/798a92e9-0105-4b39-85b6-5b89048a108e)
 
 Functions as of now:
 - Automatic 2-stage upscale
@@ -26,6 +26,8 @@ Future functions, feel free to wait or suggest your code:
 - Selecting flat color for init image, would be great in achieving darker pictures with black or grey init, as well as setting color theme of image
 - Integration of postprocessing extras upscale and custom effects, such as noise, vignette or watermarks
 - Usage of SD upscale rather base img2img for second step
+
+![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/4da581ed-3e00-4abc-88e3-f41710f37cee)
 
 Known issues, also feel free to suggest your fixes:
 - Poor for using on anime arts, can't detect faces on them
