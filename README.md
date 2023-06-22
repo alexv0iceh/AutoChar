@@ -13,12 +13,17 @@ Just go to your **txt2img** tab, write prompt, choose basic parameters (sampler,
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/798a92e9-0105-4b39-85b6-5b89048a108e)
 
-_Functions as of now:_
+_Functions and features as of now:_
 - Automatic 2-stage upscale
 - Automatic face and eyes inpaint, for all detected faces on image
 - Custom filtering function to help reduce noise on first generation and raise sharpness of the image before upscaling
 - For even higher quality, you can toggle face and eyes inpaint in between upscaling steps with little impact on generation time
 - If you're really heavy on your LORA's usage, you can toggle CFG scale lowering for face inpaint to avoid burning
+- Fully compatible with ControlNet
+- Works in both txt2img and img2img
+
+![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/36794ff7-6c07-4356-8268-28f93ab63556)
+
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/2b60ba4f-86af-4c53-a4f3-2d85d3f03e10)
 
@@ -38,10 +43,7 @@ _Future functions, feel free to wait or suggest your code:_
 - Selecting flat color for init image, would be great in achieving darker pictures with black or grey init, as well as setting color theme of image
 - Integration of postprocessing extras upscale and custom effects, such as noise, vignette or watermarks
 - Usage of SD upscale rather base img2img for second step
-- 
-![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/dca5b859-f464-4e20-b9b9-a6ed9516bd48)
-
-
+  
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/4da581ed-3e00-4abc-88e3-f41710f37cee)
 
 _Known issues, also feel free to suggest your fixes:_
