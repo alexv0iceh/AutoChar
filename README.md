@@ -10,7 +10,10 @@ So, let us enjoy the open beta!
 **Just put script and .onnx face recognition model in your stable-diffusion-webui/scripts folder**
 
 **!!  USAGE  !!:**
-Just go to your **txt2img** tab, write prompt, choose basic parameters (sampler, steps, CFG, etc), choose AutoChar in Scripts falling menu, press Generate and enjoy
+1. Go to your txt2img tab
+2. Write prompt, select basic parameters as usual (you don't highres fix, since it's included in the algorithm)
+3. Select "AutoChar Control Panel" in dropdown menu Scripts in the lower part of page
+4. Click "Generate" and enjoy
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/798a92e9-0105-4b39-85b6-5b89048a108e)
 
