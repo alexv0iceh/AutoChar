@@ -17,7 +17,7 @@ So, let us enjoy the open beta!
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/798a92e9-0105-4b39-85b6-5b89048a108e)
 
-_Functions and features as of now:_
+## _Functions and features as of now:_
 - Automatic 2-stage upscale
 - Automatic face and eyes inpaint, for all detected faces on image
 - Custom filtering function to help reduce noise on first generation and raise sharpness of the image before upscaling
@@ -31,7 +31,7 @@ _Functions and features as of now:_
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/2b60ba4f-86af-4c53-a4f3-2d85d3f03e10)
 
-_Algorithm itself:_
+## _Algorithm itself:_
 - Txt2img generation in chosen resolution
 - High-res fix (default: x1.2 on 0.55 denoising strength) to boost details and gain sharpness
 - [Optional, "on" by default] Filtering with chosen strength (default: 0.5, less is better for realistic or smooth-rendered images)
@@ -39,7 +39,7 @@ _Algorithm itself:_
 - Img2img (default: x1.5 from first generation on 0.3 denoising strength)
 - Automatic inpainting of face and eyes with chosen parameters (default: 0.2 denoising strength)
 
-_Future functions, feel free to wait or suggest your code:_
+## _Future functions, feel free to wait or suggest your code:_
 - Adding anime face recognition model (sadly, it will kinda break or make it less time efficient to upscale eyes)
 - More elegant implementation for img2img (it works just fine now, but the inteface is the same when it should be different)
 - Add automatic head area hightlighting with added contrast and brightness
@@ -51,7 +51,7 @@ _Future functions, feel free to wait or suggest your code:_
   
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/4da581ed-3e00-4abc-88e3-f41710f37cee)
 
-_Known issues, also feel free to suggest your fixes:_
+## _Known issues, also feel free to suggest your fixes:_
 - Poor for using on anime arts, can't detect faces on them
 - Sometimes, it finds face on character's breasts or armpits, fix is coming, but not today, so brace yourself for some occasional body horror (but you can see ALL steps in your history, so it's not really a big deal)
 - Don't select 4x-UltraSharp upscaler if you don't have one (if so, get it here https://mega.nz/folder/qZRBmaIY#nIG8KyWFcGNTuMX_XNbJ_g)
