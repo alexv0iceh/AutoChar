@@ -1,4 +1,4 @@
-# AutoChar
+## AutoChar
 Stable Diffusion WebUI extension for fast and easy automatic face and eyes inpainting, featuring many additional benefits and options for creating character art.
 
 AutoChar Control Panel is a custom script for Stable Diffusion WebUI by Automatic1111 made to help newbies and enthusiasts alike achieve great pictures with less effort.
