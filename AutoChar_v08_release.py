@@ -37,10 +37,8 @@ class Script(scripts.Script):
         with gr.Accordion('Additional options', open=False):
             filtering = gr.Checkbox(True, label="Filtering function")
 
-            strength = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.5,
+            strength = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.3,
                                  label="Strength of Filtering")
-
-            lower_cfg = gr.Checkbox(False, label="Lower CFG for face inpaint. Helps avoid burning with multiple LORAs")
 
             first_denoise = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.55,
                                       label="First upscale denoising strength")
@@ -59,12 +57,14 @@ class Script(scripts.Script):
 
             mid_inpainting = gr.Checkbox(False, label="Attempt mid-uspcale inpainting with chosen options ")
 
+            lower_cfg = gr.Checkbox(False, label="Lower CFG for face inpaint. Helps avoid burning with multiple LORAs")
+
         return [filtering, strength, ui_upscaler_1, first_denoise, second_denoise, face_denoise, eyes_denoise, options,
                 mid_inpainting, scale_factor, scale_factor0, lower_cfg]
 
     def run(self, p, filtering, strength, ui_upscaler_1, first_denoise, second_denoise, face_denoise, eyes_denoise,
-            options, mid_inpainting, scale_factor, scale_factor0,
-            lower_cfg):
+            options, mid_inpainting, scale_factor, scale_factor0, lower_cfg):
+
         initial_seed_and_info = [None, None, None]
         face_inpaint_flag = True if "Automatic face inpaint" in options else False
         eyes_inpaint_flag = True if "Automatic eyes inpaint" in options else False
@@ -82,6 +82,8 @@ class Script(scripts.Script):
             mid_eyes_flag = eyes_inpaint_flag
 
         upscaler = ui_upscaler_1
+        if upscaler == "Latent":
+            upscaler = "Latent (bicubic antialiased)"
 
         from PIL import Image
         import cv2
@@ -339,8 +341,8 @@ class Script(scripts.Script):
             instance_img2img.prompt = initial_seed_and_info[2]
 
             # Change resolution so that it's surely dividable by 4
-            instance_img2img.width = closest(int(scale_factor * init_image.images[0].width), 4)
-            instance_img2img.height = closest(int(scale_factor * init_image.images[0].height), 4)
+            instance_img2img.width = closest(int(scale_factor * p.width), 4)
+            instance_img2img.height = closest(int(scale_factor * p.height), 4)
 
             # Print new resolution
             if info_flag:
