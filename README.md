@@ -1,5 +1,4 @@
 # AutoChar
-Stable Diffusion WebUI extension for fast and easy automatic creation of detailed character art.
 
 AutoChar Control Panel is a custom script for Stable Diffusion WebUI by Automatic1111 made to help newbies and enthusiasts alike achieve great pictures with less effort.
 Basically, it's automation of my basic SD workflow for illustrations (check 'em here: https://t.me/dreamforge_tg) and also my Bachelor graduation work, for which I got an A. I've put decent emphasis in code readability and comments for it, so I hope it will help future contributors and developers of other scripts. 
