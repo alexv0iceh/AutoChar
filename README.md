@@ -1,4 +1,4 @@
-## AutoChar
+# AutoChar
 Stable Diffusion WebUI extension for fast and easy automatic face and eyes inpainting, featuring many additional benefits and options for creating character art.
 
 AutoChar Control Panel is a custom script for Stable Diffusion WebUI by Automatic1111 made to help newbies and enthusiasts alike achieve great pictures with less effort.
@@ -6,10 +6,10 @@ Basically, it's automation of my basic SD workflow for illustrations (check 'em 
 
 So, let us enjoy the open beta!
 
-**!! INSTALLATION !!:**
+## Installation
 **Just put script and .onnx face recognition model in your stable-diffusion-webui/scripts folder**
 
-**!!  USAGE  !!:**
+## How to use
 1. Go to your txt2img tab
 2. Write prompt, select basic parameters as usual (you don't highres fix, since it's included in the algorithm)
 3. Select "AutoChar Control Panel" in dropdown menu Scripts in the lower part of page
