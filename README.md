@@ -16,6 +16,11 @@ So, let us enjoy the open beta!
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/798a92e9-0105-4b39-85b6-5b89048a108e)
 
+## _WARNINGS_
+
+-It's kind of conflicting with AfterDetailer and may cause crashes if used together
+-It's working poorly with Dynamic Prompts as of now, so it's not advised as well, read Known Issues for details
+
 ## _Functions and features as of now:_
 - Automatic 2-stage upscale
 - Automatic face and eyes inpaint, for all detected faces on image
@@ -23,7 +28,7 @@ So, let us enjoy the open beta!
 - For even higher quality, you can toggle face and eyes inpaint in between upscaling steps with little impact on generation time
 - If you're really heavy on your LORA's usage, you can toggle CFG scale lowering for face inpaint to avoid burning
 - Fully compatible with ControlNet
-- Works in both txt2img and img2img
+- Works in both txt2img and img2img (for img2img, it will use selected resolution as base, and Second upscale denoising strength in AutoChar's advanced settings, and ignore one selected in parameters of generation)
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/36794ff7-6c07-4356-8268-28f93ab63556)
 
@@ -55,4 +60,4 @@ So, let us enjoy the open beta!
 - Sometimes, it finds face on character's breasts or armpits, fix is coming, but not today, so brace yourself for some occasional body horror (but you can see ALL steps in your history, so it's not really a big deal)
 - Doesn't pick up your selected Styles from menu automatically, you need to APPLY them to prompt first
 - Don't select 4x-UltraSharp upscaler if you don't have one (if so, get it here https://mega.nz/folder/qZRBmaIY#nIG8KyWFcGNTuMX_XNbJ_g)
-- BAD with Dynamic Prompts extension, will default to wildcard prompt after first upscale, not sure how to fix this one due to complicated nature of extension
+- BAD with Dynamic Prompts extension, will default to wildcard prompt after first upscale, not sure how to fix this one due to complicated nature of extension. It will apply proper prompt only for txt2img and high-res fix stepts, then for img2img and inpaint it will use FULL prompt, so, depending on variance in wildcards, it can cause issues from same eye colors to horror abominations if there are different fantasy races there
