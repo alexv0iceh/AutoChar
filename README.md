@@ -20,6 +20,7 @@ So, let us enjoy the open beta!
 
 -It's kind of conflicting with AfterDetailer and may cause crashes if used together
 -It's working poorly with Dynamic Prompts as of now, so it's not advised as well, read Known Issues for details
+If it gives you FileNotFoundError, please, make sure your saving directories are divided by txt2img and img2img folders in /stable-diffusion-webui/output. You can do it it Settings-Paths for saving.
 
 ## _Functions and features as of now:_
 - Automatic 2-stage upscale
