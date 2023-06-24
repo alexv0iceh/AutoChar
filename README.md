@@ -1,7 +1,8 @@
 # AutoChar
+https://civitai.com/models/95923/autochar-easy-character-art-creation-with-face-auto-inpaint
 
 AutoChar Control Panel is a custom script for Stable Diffusion WebUI by Automatic1111 made to help newbies and enthusiasts alike achieve great pictures with less effort.
-Basically, it's automation of my basic SD workflow for illustrations (check 'em here: https://t.me/dreamforge_tg) and also my Bachelor graduation work, for which I got an A. I've put decent emphasis in code readability and comments for it, so I hope it will help future contributors and developers of other scripts. 
+Basically, it's automation of my basic SD workflow for illustrations (check 'em here: https://t.me/dreamforge_tg) and also my Bachelor graduation work, for which I got an A. I've put decent emphasis in code readability and comments for it, so I hope it will help future contributors and developers of other scripts.  
 
 So, let us enjoy the open beta!
 
@@ -15,6 +16,9 @@ So, let us enjoy the open beta!
 4. Click "Generate" and enjoy
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/798a92e9-0105-4b39-85b6-5b89048a108e)
+
+![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/ce325cd3-9f7d-4c4b-9b79-ffa8df158171)
+
 
 ## _WARNINGS_
 
