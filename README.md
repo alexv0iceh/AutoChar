@@ -53,5 +53,6 @@ So, let us enjoy the open beta!
 ## _Known issues, also feel free to suggest your fixes:_
 - Poor for using on anime arts, can't detect faces on them
 - Sometimes, it finds face on character's breasts or armpits, fix is coming, but not today, so brace yourself for some occasional body horror (but you can see ALL steps in your history, so it's not really a big deal)
+- Doesn't pick up your selected Styles from menu automatically, you need to APPLY them to prompt first
 - Don't select 4x-UltraSharp upscaler if you don't have one (if so, get it here https://mega.nz/folder/qZRBmaIY#nIG8KyWFcGNTuMX_XNbJ_g)
 - BAD with Dynamic Prompts extension, will default to wildcard prompt after first upscale, not sure how to fix this one due to complicated nature of extension
