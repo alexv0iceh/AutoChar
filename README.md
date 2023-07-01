@@ -7,7 +7,7 @@ Basically, it's automation of my basic SD workflow for illustrations (check 'em 
 So, let us enjoy the open beta!
 
 ## Installation
-**Just put script and .onnx face recognition model in your stable-diffusion-webui/scripts folder**
+**Just put script and .onnx face recognition model in your stable-diffusion-webui/scripts folder. PLEASE, don't try to install via URL, it's not an extension, it won't be visible this way!**
 
 ## How to use
 1. Go to your txt2img tab
