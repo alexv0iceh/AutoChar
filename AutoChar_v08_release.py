@@ -28,7 +28,7 @@ class Script(scripts.Script):
                                    elem_id=self.elem_id("options"))
 
         ui_upscaler_1 = gr.Radio(
-            ["Latent", "ESRGAN_4x", "R-ESRGAN 4x+Anime6B", "R-ESRGAN 4x+", "4x-UltraSharp", "None"], label="Upscaler 1",
+            ["Latent", "ESRGAN_4x", "R-ESRGAN 4x+ Anime6B", "R-ESRGAN 4x+", "4x-UltraSharp", "None"], label="Upscaler 1",
             value="Latent",
 
             elem_id=self.elem_id("ui_upscaler_1")
