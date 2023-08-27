@@ -1,4 +1,4 @@
-# AutoChar
+# AutoChar - Version 0.9 is here!
 https://civitai.com/models/95923/autochar-easy-character-art-creation-with-face-auto-inpaint
 
 AutoChar Control Panel is a custom script for Stable Diffusion WebUI by Automatic1111 made to help newbies and enthusiasts alike achieve great pictures with less effort.
