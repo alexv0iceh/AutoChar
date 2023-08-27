@@ -11,11 +11,10 @@ So, let us enjoy the open beta!
 
 ## How to use
 1. Go to your txt2img tab
-2. Write prompt, select basic parameters as usual (you don't highres fix, since it's included in the algorithm)
-3. Select "AutoChar Control Panel" in dropdown menu Scripts in the lower part of page
+2. Write prompt, select basic parameters as usual (you don't need highres fix, since it's included in the algorithm)
+3. Select "AutoChar Beta 0.9" in dropdown menu Scripts in the lower part of page
 4. Click "Generate" and enjoy
-
-![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/798a92e9-0105-4b39-85b6-5b89048a108e)
+![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/16919ca6-1de3-4052-a2fd-6729c9e890e5)
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/ce325cd3-9f7d-4c4b-9b79-ffa8df158171)
 
@@ -23,7 +22,6 @@ So, let us enjoy the open beta!
 ## _WARNINGS_
 
 - It's kind of conflicting with AfterDetailer and may cause crashes if used together
-- It's working poorly with Dynamic Prompts as of now, so it's not advised as well, read Known Issues for details
 - If it gives you FileNotFoundError, please, make sure your saving directories are divided by txt2img and img2img folders in /stable-diffusion-webui/output. You can do it it Settings-Paths for saving.
 
 ## _Functions and features as of now:_
@@ -34,9 +32,15 @@ So, let us enjoy the open beta!
 - If you're really heavy on your LORA's usage, you can toggle CFG scale lowering for face inpaint to avoid burning
 - Fully compatible with ControlNet
 - Works in both txt2img and img2img (for img2img, it will use selected resolution as base, and Second upscale denoising strength in AutoChar's advanced settings, and ignore one selected in parameters of generation)
+- Added full support for Dynamic Prompts. Enjoy fully automatic enhancement for all of your randomized generations.
+- Added SD Upscale as a new default instead of basic Image2Image. Much greater detail and sharpness + customization with your preferred upscaler.
+- Lower LoRA: new measure to avoid burnout on faces when using strong or multiple LoRAs. On by default.
+- Biggest face: inpaints only the largest face on generation, no more abominable body horrors on armpits and breasts, also helps with crowdy pictures. On by default.
+- Now only first and last generation of each cycle will be saved to Txt2img output folder by default. All the other steps will be stored in Img2img folder.
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/36794ff7-6c07-4356-8268-28f93ab63556)
 
+![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/798a92e9-0105-4b39-85b6-5b89048a108e)
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/2b60ba4f-86af-4c53-a4f3-2d85d3f03e10)
 
@@ -56,13 +60,16 @@ So, let us enjoy the open beta!
 - ControlNet fixation of first/second generation to preserve shapes through upscale better
 - Selecting flat color for init image, would be great in achieving darker pictures with black or grey init, as well as setting color theme of image
 - Integration of postprocessing extras upscale and custom effects, such as noise, vignette or watermarks
-- Usage of SD upscale rather base img2img for second step
   
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/4da581ed-3e00-4abc-88e3-f41710f37cee)
 
 ## _Known issues, also feel free to suggest your fixes:_
 - Poor for using on anime arts, can't detect faces on them
-- Sometimes, it finds face on character's breasts or armpits, fix is coming, but not today, so brace yourself for some occasional body horror (but you can see ALL steps in your history, so it's not really a big deal)
 - Doesn't pick up your selected Styles from menu automatically, you need to APPLY them to prompt first
 - Don't select 4x-UltraSharp upscaler if you don't have one (if so, get it here https://mega.nz/folder/qZRBmaIY#nIG8KyWFcGNTuMX_XNbJ_g)
-- BAD with Dynamic Prompts extension, will default to wildcard prompt after first upscale, not sure how to fix this one due to complicated nature of extension. It will apply proper prompt only for txt2img and high-res fix stepts, then for img2img and inpaint it will use FULL prompt, so, depending on variance in wildcards, it can cause issues from same eye colors to horror abominations if there are different fantasy races there
+
+## _Coming in 1.0:_
+- Release as full extension.
+- Full Img2Img support.
+- ControlNet integration.
+- More parameters for advanced users.
