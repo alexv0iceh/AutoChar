@@ -38,7 +38,7 @@ So, let us enjoy the open beta!
 - Biggest face: inpaints only the largest face on generation, no more abominable body horrors on armpits and breasts, also helps with crowdy pictures. On by default.
 - Now only first and last generation of each cycle will be saved to Txt2img output folder by default. All the other steps will be stored in Img2img folder.
 
-![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/36794ff7-6c07-4356-8268-28f93ab63556)
+![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/d71d32c0-b5fb-4073-83a7-e244fa8f1073)
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/798a92e9-0105-4b39-85b6-5b89048a108e)
 
