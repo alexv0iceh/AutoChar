@@ -39,7 +39,8 @@ class Script(scripts.Script):
     def ui(self, is_img2img):
 
         scale_factor = gr.Slider(minimum=1.0, maximum=3.5, step=0.1, value=1.5,
-                                 label="Img2img scale factor")
+                                 label="Final scale factor")
+        
 
         options = gr.CheckboxGroup(label="Options", choices=['Automatic face inpaint', 'Automatic eyes inpaint',
                                                              'Display info in terminal'],
@@ -48,62 +49,65 @@ class Script(scripts.Script):
 
 
 
+        with gr.Row():
+            ui_upscaler_1 = gr.Radio(
+                ["Latent (bicubic antialiased)", "Latent", "ESRGAN_4x", "R-ESRGAN 4x+ Anime6B", "R-ESRGAN 4x+", "4x-UltraSharp", "None"], label="Upscaler 1 (High-Res Fix)",
+                value="Latent (bicubic antialiased)",
 
-        ui_upscaler_1 = gr.Radio(
-            ["Latent (bicubic antialiased)", "Latent", "ESRGAN_4x", "R-ESRGAN 4x+ Anime6B", "R-ESRGAN 4x+", "4x-UltraSharp", "None"], label="Upscaler 1 (High-Res Fix)",
-            value="Latent (bicubic antialiased)",
-
-            elem_id=self.elem_id("ui_upscaler_1")
-        )
-
-
-
-        ui_upscaler_2 = gr.Radio(
-            [x.name for x in shared.sd_upscalers], label="Upscaler 2 (SD Upscale)",
-            value="Nearest",
-            type="index",
-            elem_id=self.elem_id("ui_upscaler_2")
-        )
+                elem_id=self.elem_id("ui_upscaler_1")
+            )
 
 
 
-        with gr.Accordion('Additional options', open=False):
+            ui_upscaler_2 = gr.Radio(
+                [x.name for x in shared.sd_upscalers], label="Upscaler 2 (SD Upscale)",
+                value="Nearest",
+                type="index",
+                elem_id=self.elem_id("ui_upscaler_2")
+            )
 
-            filtering = gr.Checkbox(True, label="Filtering function")
 
-            biggest_face = gr.Checkbox(True, label="Inpaint only the biggest face on the image")
 
-            lower_lora_param = gr.Checkbox(True,
-                                    label="Lower LoRA strength for face inpaint. Helps avoid burnout with strong LORAs")
+        with gr.Accordion('Advanced options', open=False):
 
-            strength = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.3,
-                                 label="Strength of Filtering")
+            with gr.Row():
+                with gr.Column():
+                    filtering = gr.Checkbox(True, label="Filtering function")
 
-            first_denoise = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.5,
-                                      label="First upscale denoising strength")
+                    biggest_face = gr.Checkbox(True, label="Inpaint only the biggest face on the image")
 
-            second_denoise = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.3,
-                                       label="Second upscale denoising strength")
-
-            face_denoise = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.2,
-                                     label="Face inpainting denoising strength")
-
-            eyes_denoise = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.15,
-                                     label="Eyes inpainting denoising strength")
-
-            scale_factor0 = gr.Slider(minimum=1.0, maximum=1.5, step=0.05, value=1.25,
-                                      label="First upscale scale factor")
+                    lower_lora_param = gr.Checkbox(True,
+                                            label="Lower LoRA strength for face inpaint. Helps avoid burnout with strong LORAs")
+                with gr.Column():
             
-            lora_lowering = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.35,
-                                 label="Multiplier for Lora strength lowering")
+                    lower_cfg = gr.Checkbox(False, label="Lower CFG for face inpaint. Helps avoid burning with multiple LoRAs")
+
+                    mid_inpainting = gr.Checkbox(False, label="Attempt mid-uspcale inpainting with chosen options")
+
+                    use_img2img = gr.Checkbox(False, label="Use plain Image2Image instead of SD Upscale")
+
+
+            with gr.Row():
+                with gr.Column():
+                    first_denoise = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.5,
+                                                label="High-Res Fix denoising strength")
+                    second_denoise = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.3,
+                                                label="SD Upscale denoising strength")
+                with gr.Column():
+                    face_denoise = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.2,
+                                                label="Face inpainting denoising strength")
+                    eyes_denoise = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.15,
+                                                label="Eyes inpainting denoising strength")
+                with gr.Column():
+                    strength = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.3,
+                        label="Strength of Filtering")
+                    lora_lowering = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.35,
+                                                label="Multiplier for LoRA strength lowering")
+            
+            scale_factor0 = gr.Slider(minimum=1.0, maximum=1.5, step=0.05, value=1.25,
+                    label="High-Res Fix scale factor")
             
             overlap = gr.Slider(label="Tile Overlap parameter for SD Upscale", minimum=0, maximum=256, step=16, value=64, elem_id=self.elem_id("overlap"))
-
-            lower_cfg = gr.Checkbox(False, label="Lower CFG for face inpaint. Helps avoid burning with multiple LoRAs")
-
-            mid_inpainting = gr.Checkbox(False, label="Attempt mid-uspcale inpainting with chosen options")
-
-            use_img2img = gr.Checkbox(False, label="Use plain Image2Image instead of SD Upscale. Less details, but usable in some scenarios")
 
 
         return [filtering, strength, ui_upscaler_1, first_denoise, second_denoise, face_denoise, eyes_denoise, options,
