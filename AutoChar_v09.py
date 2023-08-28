@@ -34,7 +34,7 @@ class Script(scripts.Script):
     # The title of the script. This is what will be displayed in the dropdown menu.
     def title(self):
 
-        return "AutoChar Beta 0.9.1"
+        return "AutoChar Beta 0.9.2"
 
     def ui(self, is_img2img):
 
