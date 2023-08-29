@@ -100,7 +100,7 @@ class Script(scripts.Script):
                                                 label="Eyes inpainting denoising strength")
                 with gr.Column():
                     strength = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.3,
-                        label="Strength of Filtering")
+                                                label="Strength of Filtering")
                     lora_lowering = gr.Slider(minimum=0.0, maximum=1.0, step=0.05, value=0.35,
                                                 label="Multiplier for LoRA strength lowering")
             
@@ -109,12 +109,14 @@ class Script(scripts.Script):
             
             overlap = gr.Slider(label="Tile Overlap parameter for SD Upscale", minimum=0, maximum=256, step=16, value=64, elem_id=self.elem_id("overlap"))
 
+            face_confidence_threshold = gr.Slider(label="Face Recognition minimum confidence", minimum=0.0, maximum=1.0, step=0.05, value=0.7)
+
 
         return [filtering, strength, ui_upscaler_1, first_denoise, second_denoise, face_denoise, eyes_denoise, options,
-                mid_inpainting, scale_factor, scale_factor0, lower_cfg,lower_lora_param,biggest_face,ui_upscaler_2,overlap,use_img2img,lora_lowering]
+                mid_inpainting, scale_factor, scale_factor0, lower_cfg,lower_lora_param,biggest_face,ui_upscaler_2,overlap,use_img2img,lora_lowering,face_confidence_threshold]
 
     def run(self, p, filtering, strength, ui_upscaler_1, first_denoise, second_denoise, face_denoise, eyes_denoise,
-            options, mid_inpainting, scale_factor, scale_factor0, lower_cfg,lower_lora_param,biggest_face,ui_upscaler_2,overlap,use_img2img,lora_lowering):
+            options, mid_inpainting, scale_factor, scale_factor0, lower_cfg,lower_lora_param,biggest_face,ui_upscaler_2,overlap,use_img2img,lora_lowering,face_confidence_threshold):
         
 
         initial_seed_and_info = [None, None, None]
@@ -249,7 +251,7 @@ class Script(scripts.Script):
             except:
                 weights = os.path.join(directory, "face_detection_yunet_2023mar.onnx")
                 
-            face_detector = cv2.FaceDetectorYN_create(weights, "", (0, 0))
+            face_detector = cv2.FaceDetectorYN_create(weights, "", (0, 0), face_confidence_threshold)
 
             # Face detection
 
