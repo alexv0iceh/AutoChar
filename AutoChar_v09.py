@@ -34,7 +34,7 @@ class Script(scripts.Script):
     # The title of the script. This is what will be displayed in the dropdown menu.
     def title(self):
 
-        return "AutoChar Beta 0.9"
+        return "AutoChar Beta 0.9.2"
 
     def ui(self, is_img2img):
 
@@ -243,10 +243,11 @@ class Script(scripts.Script):
             image = np.array(image)
 
             # Load the model
+
             try:
-                weights = os.path.join(directory, "face_detection_yunet_2023mar.onnx")
-            except:
                 weights = os.path.join(directory, "face_detection_yunet_2022mar.onnx")
+            except:
+                weights = os.path.join(directory, "face_detection_yunet_2023mar.onnx")
                 
             face_detector = cv2.FaceDetectorYN_create(weights, "", (0, 0))
 
@@ -375,14 +376,17 @@ class Script(scripts.Script):
 
         # Function for lowering LORA strength
         def lower_lora(lora_list):
-            new_lora_list = []
-            for lora in lora_list:
-                lora_parts = lora.split(":")
-                lora_strength = round(((float((lora_parts[2])[:-1])) * lora_lowering),3)
-                new_lora_str = lora_parts[0] + ':' + lora_parts[1] + ':' + str(lora_strength) + '>'
-                new_lora_list.append(new_lora_str)
-            final_lora_str = ' '.join([str(elem) for i, elem in enumerate(new_lora_list)])
-            return final_lora_str
+          if len(lora_list) == 0 or lora_list[0] == '':
+              return "EMPTY_LORA_LIST"  # Return unique value when lora list is empty
+          else:
+              new_lora_list = []
+              for lora in lora_list:
+                  lora_parts = lora.split(":")
+                  lora_strength = round(((float((lora_parts[2])[:-1])) * lora_lowering),3)
+                  new_lora_str = lora_parts[0] + ':' + lora_parts[1] + ':' + str(lora_strength) + '>'
+                  new_lora_list.append(new_lora_str)
+              final_lora_str = ' '.join([str(elem) for i, elem in enumerate(new_lora_list)])
+              return final_lora_str
 
 
         # Custom wrapper for process_images(p) to start txt2img+hrfix
@@ -556,13 +560,15 @@ class Script(scripts.Script):
                     print('Lowering CFG for inpaint \n new CFG:', instance_inpaint.cfg_scale)
 
             if lower_lora_param:
-                new_prompt = re.split('<lora:', instance_inpaint.prompt)[0] + lower_lora(loras)
-                instance_inpaint.prompt = new_prompt
-                #print('New prompt after lowering LORAS', new_prompt)
-                #print(instance_inpaint.prompt)
-                if info_flag:
-                    print('Lowering LORA strength for inpaint \n new LORA strengths:', lower_lora(loras))
-
+                if not lower_lora(loras) == 'EMPTY_LORA_LIST':
+                    new_prompt = re.split('<lora:', instance_inpaint.prompt)[0] + lower_lora(loras)
+                    instance_inpaint.prompt = new_prompt
+                    #print('New prompt after lowering LORAS', new_prompt)
+                    #print(instance_inpaint.prompt)
+                    if info_flag:
+                        print('Lowering LORA strength for inpaint \n new LORA strengths:', lower_lora(loras))
+                else:
+                    print ('LoRA not found in prompt. Proceeding normally.')
 
             # Check if it's our last step
             if is_last_inpaint:
