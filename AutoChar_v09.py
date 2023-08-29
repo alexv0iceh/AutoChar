@@ -375,19 +375,18 @@ class Script(scripts.Script):
             return results
 
         # Function for lowering LORA strength
-        def lower_lora(lora_list_str):
-            if len(lora_list_str) == 0 or lora_list_str[0] == '':
-                return "EMPTY_LORA_LIST"  # Return unique value when lora list is empty
-            # Check if lora_list_str is empty
-            else:
-                new_lora_list = []
-                lora_f_list = lora_list_str.split(" ")
-                for lora in lora_f_list:
-                    lora_strengh = round(((float((lora.split(":")[2])[:-1])) * lora_lowering),3)
-                    new_lora_str = lora.split(":")[0] + ':' + lora.split(":")[1] + ':' + str(lora_strengh) + '>'
-                    new_lora_list.append(new_lora_str)
-                final_lora_str = ' '.join([str(elem) for i, elem in enumerate(new_lora_list)])
-                return final_lora_str
+        def lower_lora(lora_list):
+          if len(lora_list) == 0 or lora_list[0] == '':
+              return "EMPTY_LORA_LIST"  # Return unique value when lora list is empty
+          else:
+              new_lora_list = []
+              for lora in lora_list:
+                  lora_parts = lora.split(":")
+                  lora_strength = round(((float((lora_parts[2])[:-1])) * lora_lowering),3)
+                  new_lora_str = lora_parts[0] + ':' + lora_parts[1] + ':' + str(lora_strength) + '>'
+                  new_lora_list.append(new_lora_str)
+              final_lora_str = ' '.join([str(elem) for i, elem in enumerate(new_lora_list)])
+              return final_lora_str
 
 
         # Custom wrapper for process_images(p) to start txt2img+hrfix
@@ -561,13 +560,13 @@ class Script(scripts.Script):
                     print('Lowering CFG for inpaint \n new CFG:', instance_inpaint.cfg_scale)
 
             if lower_lora_param:
-                if not lower_lora(loras_list) == 'EMPTY_LORA_LIST':
-                    new_prompt = re.split('<lora:', instance_inpaint.prompt)[0] + lower_lora(loras_list)
+                if not lower_lora(loras) == 'EMPTY_LORA_LIST':
+                    new_prompt = re.split('<lora:', instance_inpaint.prompt)[0] + lower_lora(loras)
                     instance_inpaint.prompt = new_prompt
                     #print('New prompt after lowering LORAS', new_prompt)
                     #print(instance_inpaint.prompt)
                     if info_flag:
-                        print('Lowering LORA strength for inpaint \n new LORA strengths:', lower_lora(loras_list))
+                        print('Lowering LORA strength for inpaint \n new LORA strengths:', lower_lora(loras))
                 else:
                     print ('LoRA not found in prompt. Proceeding normally.')
 
@@ -617,7 +616,6 @@ class Script(scripts.Script):
             #print(prompt_temp)
             #print (initial_prompt)
             loras = re.findall(r'<.*?>', initial_prompt)
-            loras_list = ' '.join([str(elem) for i, elem in enumerate(loras)])
             #print ("Used LORAs " +str(loras_list))
             if filtering:
                 hr_fix_output.images[0] = enhance_image(hr_fix_output, strength)
