@@ -377,18 +377,16 @@ class Script(scripts.Script):
             return results
 
         # Function for lowering LORA strength
-        def lower_lora(lora_list):
-          if len(lora_list) == 0 or lora_list[0] == '':
-              return "EMPTY_LORA_LIST"  # Return unique value when lora list is empty
-          else:
-              new_lora_list = []
-              for lora in lora_list:
-                  lora_parts = lora.split(":")
-                  lora_strength = round(((float((lora_parts[2])[:-1])) * lora_lowering),3)
-                  new_lora_str = lora_parts[0] + ':' + lora_parts[1] + ':' + str(lora_strength) + '>'
-                  new_lora_list.append(new_lora_str)
-              final_lora_str = ' '.join([str(elem) for i, elem in enumerate(new_lora_list)])
-              return final_lora_str
+        def lower_lora(current_prompt):
+            loras = re.findall(r'(<lora:[^>]*:(\d*\.?\d*)>)', current_prompt)# find all LoRAs and save them into capture groups. [0] full lora = <lora:name:strength>, [1] strength only
+            new_prompt = current_prompt
+            if info_flag:
+                print("found LoRAs:", loras)
+            for lora in loras:
+                lora_strength = round(float(lora[1]) * lora_lowering,3)
+                new_lora = lora[0].replace(lora[1], str(lora_strength))
+                new_prompt = new_prompt.replace(lora[0], new_lora)
+            return new_prompt
 
 
         # Custom wrapper for process_images(p) to start txt2img+hrfix
@@ -562,15 +560,11 @@ class Script(scripts.Script):
                     print('Lowering CFG for inpaint \n new CFG:', instance_inpaint.cfg_scale)
 
             if lower_lora_param:
-                if not lower_lora(loras) == 'EMPTY_LORA_LIST':
-                    new_prompt = re.split('<lora:', instance_inpaint.prompt)[0] + lower_lora(loras)
-                    instance_inpaint.prompt = new_prompt
-                    #print('New prompt after lowering LORAS', new_prompt)
-                    #print(instance_inpaint.prompt)
-                    if info_flag:
-                        print('Lowering LORA strength for inpaint \n new LORA strengths:', lower_lora(loras))
-                else:
-                    print ('LoRA not found in prompt. Proceeding normally.')
+                new_prompt = lower_lora(instance_inpaint.prompt)
+                instance_inpaint.prompt = new_prompt
+                #print(instance_inpaint.prompt)
+                if info_flag:
+                    print('Lowering LORA strength for inpaint \n new LORA strengths:', new_prompt)
 
             # Check if it's our last step
             if is_last_inpaint:
@@ -617,8 +611,6 @@ class Script(scripts.Script):
             prompt_temp = re.split('Negative prompt: ',hr_fix_output.info)[0]
             #print(prompt_temp)
             #print (initial_prompt)
-            loras = re.findall(r'<.*?>', initial_prompt)
-            #print ("Used LORAs " +str(loras_list))
             if filtering:
                 hr_fix_output.images[0] = enhance_image(hr_fix_output, strength)
 
