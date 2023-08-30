@@ -378,13 +378,14 @@ class Script(scripts.Script):
 
         # Function for lowering LORA strength
         def lower_lora(current_prompt):
-            loras = re.findall(r'(<lora:[^>]*:(\d*\.?\d*)>)', current_prompt)# find all LoRAs and save them into capture groups. [0] full lora = <lora:name:strength>, [1] strength only
+            loras = re.findall(r'(<lora:[^>]*(:(\d*\.?\d*)>))', current_prompt)# find all LoRAs and save them into capture groups. [0] full LoRA = "<lora:name:0.5>", [1] suffix only = ":0.5>", [2] strength only = "0.5"
             new_prompt = current_prompt
             if info_flag:
                 print("found LoRAs:", loras)
             for lora in loras:
-                lora_strength = round(float(lora[1]) * lora_lowering,3)
-                new_lora = lora[0].replace(lora[1], str(lora_strength))
+                lora_strength = round(float(lora[2]) * lora_lowering,3)
+                lora_suffix = ':'+str(lora_strength)+'>' # extra step to prevent potentially breaking LoRAs that have numbers in them
+                new_lora = lora[0].replace(lora[1], lora_suffix)
                 new_prompt = new_prompt.replace(lora[0], new_lora)
             return new_prompt
 
