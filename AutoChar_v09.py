@@ -287,8 +287,6 @@ class Script(scripts.Script):
                 # Keep only the biggest face
                 faces = [faces[biggest_face_index]]
                 faces_quantity = 1
-                
-            backup_faces = faces
             # Checking if the face box is horizontal
             if faces_quantity == 1:
                 face1 = faces[0]
@@ -298,14 +296,12 @@ class Script(scripts.Script):
                     rotate = True
                     height, width, _ = image.shape
                     face_detector.setInputSize((width, height))
-                    _, faces = face_detector.detect(image)
-                    print(faces)
+                    _, horizontalFaces = face_detector.detect(image)
+                    if horizontalFaces is not None:
+                        faces = horizontalFaces
+                        print(faces)
 
             results = []
-            if faces is None and backup_faces is not None: # sometimes faces is None here from the horizontal face box check
-                faces = backup_faces
-                if info_flag:
-                    print('faces is None, using faces from before horizontal face box check')
             if faces is not None:
                 for face in faces:
                     face_width = face[2]
