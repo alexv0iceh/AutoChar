@@ -492,7 +492,7 @@ class Script(scripts.Script):
 
             # Check if it's our last step
             if is_last_sd_upscale:
-                instance_img2img.outpath_samples = opts.outdir_txt2img_samples
+                instance_sd_upscale.outpath_samples = opts.outdir_txt2img_samples
 
 
             # Check for changes in prompt (DYNAMIC PROMPTS PROBLEM)
@@ -639,9 +639,26 @@ class Script(scripts.Script):
             if not face_inpaint_flag:
                 is_last = True
 
+            if face_inpaint_flag:
+                is_last = True
+                for (mask_face, mask_eyes, inpaint_face_size, inpaint_eye_size, face_found, faces_quantity) in mask_create(
+                            hr_fix_output.images[0]):
+                    if face_found:
+                        is_last = False
+                        break
+            
+            if info_flag:
+                if is_last:
+                    print('NO Face found in pre upscale check. Marking Upscale as last Image')
+                else:
+                    print('Face found in pre upscale check')
+                    
+
             if not use_img2img:
                 last_image_batch = sd_upscale(hr_fix_output, scale_factor, is_last,overlap, ui_upscaler_2)
             else: last_image_batch = img2img(hr_fix_output, scale_factor, is_last)
+
+            is_last = False
 
             print("islast",is_last)
             if face_inpaint_flag:
