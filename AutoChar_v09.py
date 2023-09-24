@@ -287,8 +287,6 @@ class Script(scripts.Script):
                 # Keep only the biggest face
                 faces = [faces[biggest_face_index]]
                 faces_quantity = 1
-                
-
             # Checking if the face box is horizontal
             if faces_quantity == 1:
                 face1 = faces[0]
@@ -298,79 +296,82 @@ class Script(scripts.Script):
                     rotate = True
                     height, width, _ = image.shape
                     face_detector.setInputSize((width, height))
-                    _, faces = face_detector.detect(image)
-                    print(faces)
+                    _, horizontalFaces = face_detector.detect(image)
+                    if horizontalFaces is not None:
+                        faces = horizontalFaces
+                        print(faces)
 
             results = []
-            for face in faces:
-                face_width = face[2]
-                # finding higher eye to measure eye y-coordinate difference
-                if face[5] > face[7]:
-                    higher_eye = (face[4], face[5])
-                    lower_eye = (face[6], face[7])
-                else:
-                    higher_eye = (face[6], face[7])
-                    lower_eye = (face[4], face[5])
-                eye_y_dif = abs(int(higher_eye[1] / lower_eye[1]))
-                eye_x_distance = abs(int(higher_eye[0] - lower_eye[0]))
-                # if eye_x_distance >= 0.4 * face_width:
-                if abs(face[4] - face[8]) >= 0.15 * face_width and abs(face[6] - face[8]) >= 0.15 * face_width:
-                    # front or 3/4 view
-                    eye_box_corner = (
-                        int(face[4] - eye_x_distance * 0.55),
-                        int(higher_eye[1] - eye_x_distance * 0.25 * (1.5 * eye_y_dif)))
-                    face_height_multiplier = face_height_multiplier * 1.2
-                    eye_y_dif_multiplier = 1.25
-                else:
-                    # profile view
-                    eye_box_corner = (
-                        int(face[4] - eye_x_distance),
-                        int(higher_eye[1] - eye_x_distance * 0.45 * (1.4 * eye_y_dif)))
-                    face_height_multiplier = face_height_multiplier * 1.3
-                    eye_y_dif_multiplier = 1.5
-                    if (face[4]) < (face[0] + 0.5 * face_width):  # left eye profile view
+            if faces is not None:
+                for face in faces:
+                    face_width = face[2]
+                    # finding higher eye to measure eye y-coordinate difference
+                    if face[5] > face[7]:
+                        higher_eye = (face[4], face[5])
+                        lower_eye = (face[6], face[7])
+                    else:
+                        higher_eye = (face[6], face[7])
+                        lower_eye = (face[4], face[5])
+                    eye_y_dif = abs(int(higher_eye[1] / lower_eye[1]))
+                    eye_x_distance = abs(int(higher_eye[0] - lower_eye[0]))
+                    # if eye_x_distance >= 0.4 * face_width:
+                    if abs(face[4] - face[8]) >= 0.15 * face_width and abs(face[6] - face[8]) >= 0.15 * face_width:
+                        # front or 3/4 view
                         eye_box_corner = (
-                            int(face[4] - eye_x_distance * 0.1),
-                            int(higher_eye[1] - eye_x_distance * 0.45 * (1.65 * eye_y_dif)))
-                    eye_x_distance = eye_x_distance * 1.2
-                box = list(map(int, face[:4]))
+                            int(face[4] - eye_x_distance * 0.55),
+                            int(higher_eye[1] - eye_x_distance * 0.25 * (1.5 * eye_y_dif)))
+                        face_height_multiplier = face_height_multiplier * 1.2
+                        eye_y_dif_multiplier = 1.25
+                    else:
+                        # profile view
+                        eye_box_corner = (
+                            int(face[4] - eye_x_distance),
+                            int(higher_eye[1] - eye_x_distance * 0.45 * (1.4 * eye_y_dif)))
+                        face_height_multiplier = face_height_multiplier * 1.3
+                        eye_y_dif_multiplier = 1.5
+                        if (face[4]) < (face[0] + 0.5 * face_width):  # left eye profile view
+                            eye_box_corner = (
+                                int(face[4] - eye_x_distance * 0.1),
+                                int(higher_eye[1] - eye_x_distance * 0.45 * (1.65 * eye_y_dif)))
+                        eye_x_distance = eye_x_distance * 1.2
+                    box = list(map(int, face[:4]))
 
-                eye_box = [eye_box_corner[0], eye_box_corner[1], int(eye_x_distance * 2),
-                           int((eye_x_distance * 0.8) * (eye_y_dif_multiplier * eye_y_dif))]
-                color = (0, 0, 255)
+                    eye_box = [eye_box_corner[0], eye_box_corner[1], int(eye_x_distance * 2),
+                            int((eye_x_distance * 0.8) * (eye_y_dif_multiplier * eye_y_dif))]
+                    color = (0, 0, 255)
 
-                thickness = 2
-                cv2.rectangle(image, box, color, thickness, cv2.LINE_AA)
-                cv2.rectangle(image, eye_box, (0, 255, 255), thickness, cv2.LINE_AA)
-                cv2.circle(image, eye_box_corner, 5, (0, 255, 255), -1, cv2.LINE_AA)
+                    thickness = 2
+                    cv2.rectangle(image, box, color, thickness, cv2.LINE_AA)
+                    cv2.rectangle(image, eye_box, (0, 255, 255), thickness, cv2.LINE_AA)
+                    cv2.circle(image, eye_box_corner, 5, (0, 255, 255), -1, cv2.LINE_AA)
 
-                if rotate:
-                    image = cv2.rotate(image, cv2.ROTATE_90_COUNTERCLOCKWISE)
-                mask1 = np.zeros(image.shape[:2], dtype="uint8")
-                mask2 = np.zeros(image.shape[:2], dtype="uint8")
-                box = [box[0], box[1], closest(int(box[2] * 1.25), 4),
-                       closest(int(box[3] * face_height_multiplier), 4)]
-                cv2.rectangle(mask1, box, 255, -1)
-                cv2.rectangle(mask2, eye_box, 255, -1)
-                inpaint_face_size = [closest(int(box[2] * face_resolution_scale), 4),
-                                     closest(int(box[3] * face_resolution_scale), 4)]
-                inpaint_eye_size = list(
-                    [closest(int(eye_box[2] * resolution_scale), 4), closest(int(eye_box[3] * resolution_scale), 4)])
-                
-                if info_flag and (inpaint_face_size[0] < 384 or inpaint_face_size[1] < 384):
-                        print('Face box too small! Initiating proportional_scaling')
-                while inpaint_face_size[0] < 384 or inpaint_face_size[1] < 384:
-                    inpaint_face_size = list(
-                        proportional_scaling(inpaint_face_size[0], inpaint_face_size[1], 1.1, 2048))
-                if info_flag and (inpaint_eye_size[0] < 384 or inpaint_eye_size[1] < 384):
-                        print('Eye box too small! Initiating proportional_scaling')
-                while inpaint_eye_size[0] < 384 or inpaint_eye_size[1] < 384:
-                    inpaint_eye_size = list(proportional_scaling(inpaint_eye_size[0], inpaint_eye_size[1], 1.2, 2048))
-                if info_flag:
-                    print("Resolution for face inpaint:\n" + str(inpaint_face_size), 'type:', type(inpaint_face_size))
-                    print("Resolution for eye inpaint:\n" + str(inpaint_eye_size), 'type:', type(inpaint_eye_size))
-                results.append(
-                    (Image.fromarray(mask1), Image.fromarray(mask2), inpaint_face_size, inpaint_eye_size, face_found, faces_quantity))
+                    if rotate:
+                        image = cv2.rotate(image, cv2.ROTATE_90_COUNTERCLOCKWISE)
+                    mask1 = np.zeros(image.shape[:2], dtype="uint8")
+                    mask2 = np.zeros(image.shape[:2], dtype="uint8")
+                    box = [box[0], box[1], closest(int(box[2] * 1.25), 4),
+                        closest(int(box[3] * face_height_multiplier), 4)]
+                    cv2.rectangle(mask1, box, 255, -1)
+                    cv2.rectangle(mask2, eye_box, 255, -1)
+                    inpaint_face_size = [closest(int(box[2] * face_resolution_scale), 4),
+                                        closest(int(box[3] * face_resolution_scale), 4)]
+                    inpaint_eye_size = list(
+                        [closest(int(eye_box[2] * resolution_scale), 4), closest(int(eye_box[3] * resolution_scale), 4)])
+                    
+                    if info_flag and (inpaint_face_size[0] < 384 or inpaint_face_size[1] < 384):
+                            print('Face box too small! Initiating proportional_scaling')
+                    while inpaint_face_size[0] < 384 or inpaint_face_size[1] < 384:
+                        inpaint_face_size = list(
+                            proportional_scaling(inpaint_face_size[0], inpaint_face_size[1], 1.1, 2048))
+                    if info_flag and (inpaint_eye_size[0] < 384 or inpaint_eye_size[1] < 384):
+                            print('Eye box too small! Initiating proportional_scaling')
+                    while inpaint_eye_size[0] < 384 or inpaint_eye_size[1] < 384:
+                        inpaint_eye_size = list(proportional_scaling(inpaint_eye_size[0], inpaint_eye_size[1], 1.2, 2048))
+                    if info_flag:
+                        print("Resolution for face inpaint:\n" + str(inpaint_face_size), 'type:', type(inpaint_face_size))
+                        print("Resolution for eye inpaint:\n" + str(inpaint_eye_size), 'type:', type(inpaint_eye_size))
+                    results.append(
+                        (Image.fromarray(mask1), Image.fromarray(mask2), inpaint_face_size, inpaint_eye_size, face_found, faces_quantity))
 
 
             return results
