@@ -1,75 +1,95 @@
-# AutoChar - Version 0.9 is here!
+# AutoChar - Version 0.9.5 is here!
 https://civitai.com/models/95923/autochar-easy-character-art-creation-with-face-auto-inpaint
 
-AutoChar Control Panel is a custom script for Stable Diffusion WebUI by Automatic1111 made to help newbies and enthusiasts alike achieve great pictures with less effort.
+AutoChar Control Panel is a custom script for Stable Diffusion WebUI by Automatic1111 (1.6.0+) made to help newbies and enthusiasts alike achieve great pictures with less effort.  
 Basically, it's automation of my basic SD workflow for illustrations (check 'em here: https://t.me/dreamforge_tg) and also my Bachelor graduation work, for which I got an A. I've put decent emphasis in code readability and comments for it, so I hope it will help future contributors and developers of other scripts.  
 
-So, let us enjoy the open beta!
+Please check my new guide for it on YouTube that explain all basic functions and pipeline: https://www.youtube.com/watch?v=jNUMHtH1U6E  
+For text description of scripts' basic idea check 0.9 version tab on CivitAI page.
 
 ## Installation
-**Just put script and .onnx face recognition model in your stable-diffusion-webui/scripts folder. PLEASE, don't try to install via URL, it's not an extension, it won't be visible this way!**
+**Just put script and .onnx face recognition model in your stable-diffusion-webui/scripts folder  
+PLEASE, don't try to install via URL, it's not an extension, it won't be visible this way!  
+Also I highly recommend to download 4x-UltraSharp Upscaler (https://mega.nz/folder/qZRBmaIY#nIG8KyWFcGNTuMX_XNbJ_g) and put in /modes/ESRGAN folder**
 
-## How to use
+
+## How to use, in short
 1. Go to your txt2img tab
 2. Write prompt, select basic parameters as usual (you don't need highres fix, since it's included in the algorithm)
 3. Select "AutoChar Beta 0.9" in dropdown menu Scripts in the lower part of page
 4. Click "Generate" and enjoy
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/16919ca6-1de3-4052-a2fd-6729c9e890e5)
 
-![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/ce325cd3-9f7d-4c4b-9b79-ffa8df158171)
+### 0.9.5 changes:
+- Fully revamped interface:
+  - Info added for all crucial parameters, containing tips for usage and clarification for not-so-obvious functions
+  - Upscaler choosing changed from check panels to dropdowns to reduce distraction
+  - Function and slider groups divided to different blocks with clarification headers
+- True img2img mode: edit existing pictures with SD upscale and automatic face&eyes inpaint
+- Additional **Advanced options**!
+-	Brand new **Really Advanced options** tab for brave enthusiasts willing to take complete control of AutoChar's generation pipeline and maximize their creativity
+- Various fixes:
+  - Fixed infamous bug with OpenCV on inpaint step
+  -	Fixed inpaint only masked padding, drastically improving results on some artstyles and checkpoints
+  -	Fixed High-Res Fix upscalers' list, now it shows all available upscalers as it should
+  -	Styles from Styles Menu are now working properly
+  -	Many small fixes in code's logic and parameters
+ 
+![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/9eccfbaa-8a09-41c7-ab97-856e6b16c7d4)
+
+### Comprehensive description of Advanced and Really Advanced options and tips for their usage:
+-	<u>**Advanced options:**</u>
+  -	<u>Quality functions:</u>
+    -	**Filtering function:** sharpens and applies denoising filter to image after High-Res Fix to improve quality and reduce the number of necessary   
+ img2img steps. May negatively impact desired result on "noisy" and blurry artstyles. _On by default_
+    -	**Inpaint only the biggest face on the image:** does what it says, can be great to prevent undesired face detection and inpaint of background or body parts. May cause problems on images with small character head (full-height pictures and landscapes). In this case, either increase Face Recognition minimum confidence or disable this options. Also disable for pictures with two or more characters._On by default_
+    -	**Lower LoRA strength for face inpaint. Helps avoid burnout with strong LORAs:** does what it says._On by default_
+    -	**Use DDIM sampler for better inpaint. Will use chosen in interface otherwise:** better for detailed faces. Note that from SD WebUi's version 1.6.0+ denoising strength works differently for DMP++ samplers, so if you're disabling this option because of possible mask residue issues, consider increasing denoising strength for inpaint steps. _On by default_
+    -	**Lower CFG for face inpaint. Helps avoid burning with multiple LoRAs:** does what it says. _Off by default_
+- <u> Algorithm-alterting functions:</u>
+  -	**Make face inpaint box larger to inpaint hair along with the face:** does what it says. It can become quite VRAM heavy, so consider lowering Scaling factor for face inpainting if you're running into issues with it. _Off by default_
+  -	**Do face inpaint after hair inpaint:** does what it says. _Off by default_
+  -	**Attempt mid-uspcale inpainting with chosen options:** does what it says. Can be helpful for adding an additional level of detail. Off by default
+  -	**Use plain Image2Image instead of SD Upscale:** does what it says. _Off by default_
+  -	**Don't use SD upscale and inpaint HRfix result. Great for weak GPUs:** besides stated reason to use it, it can be useful to people accustomed to High-Res Fix-only pipeline._Off by default_
+- <u>Regulate denoise for each step:</u>
+  -	All needed info is already in UI, but i would like to add that rom SD WebUi's version 1.6.0+ necessary denoise for DPM++ samplers is like x2 from DDIM denoise up to 0.5; E.g. 0.2 on DDIM is roughly the same as 0.4 on DPM++ 2M Karras
+- <u> Sliders for parameters:</u>
+  -	**High-Res Fix scale factor:** all info in UI
+  -	**Strength of Filtering:** intensity of Filtering function's effect. 0.3-0.5 works best, higher is tricky, but can be helpful for some artstyles
+  -	**Multiplier for LoRA strength lowering:** does what it says. Increase if you want to preserve more of artstyle from your LoRAs
+  -	**Face Recognition minimum confidence:** increase for stricter face detection, decrease if having problems on more anime-like artstyles
+- <u>**Really advanced options:**</u>
+  -	Tile Overlap parameter for SD Upscale, Scaling factor for face inpainting, Scaling factor for eyes inpainting: all info in UI
+  - <u>Algorithm's steps' settings:</u> 
+    -	**Checkpoint:** allows you to choose different one of your checkpoints to be used on this step. Great for mixing artstyles and combining best qualities of each checkpoint!
+    -	**Sampler:** obvious
+    -	**Clip Skip:** my use case is to generate base image on Сlip Skip 2 but work with it on later steps on Clip Skip 1 for better realism
+    -	**Steps:** obvious
+    -	**Prompt & Negative prompt:** allows you to use different prompts and LoRAs for each step. Like, using object or content LoRAs and exclude them from later steps, replacing with LoRAs that have great style, but negatively impact image's content if used in txt2img generation
+
+![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/cd6f7365-e4fd-43dc-94c9-fa535c8cc249)
 
 
-## _WARNINGS_
 
-- It's kind of conflicting with AfterDetailer and may cause crashes if used together
-- If it gives you FileNotFoundError, please, make sure your saving directories are divided by txt2img and img2img folders in /stable-diffusion-webui/output. You can do it it Settings-Paths for saving.
+## _Algorithm itself:_
+1. Txt2img generation in chosen resolution
+2. High-res fix to boost details and gain sharpness
+3. [Optional, "on" by default] Filtering with chosen strength 
+4. [Optional, "off" by default] Automatic inpainting of face and eyes with chosen parameters
+5. SD Upscale 
+6. Automatic inpainting of face and eyes with chosen parameters 
 
-## _Functions and features as of now:_
-- Automatic 2-stage upscale
-- Automatic face and eyes inpaint, for all detected faces on image
-- Custom filtering function to help reduce noise on first generation and raise sharpness of the image before upscaling
-- For even higher quality, you can toggle face and eyes inpaint in between upscaling steps with little impact on generation time
-- If you're really heavy on your LORA's usage, you can toggle CFG scale lowering for face inpaint to avoid burning
-- Fully compatible with ControlNet
-- Works in both txt2img and img2img (for img2img, it will use selected resolution as base, and Second upscale denoising strength in AutoChar's advanced settings, and ignore one selected in parameters of generation)
-- Added full support for Dynamic Prompts. Enjoy fully automatic enhancement for all of your randomized generations.
-- Added SD Upscale as a new default instead of basic Image2Image. Much greater detail and sharpness + customization with your preferred upscaler.
-- Lower LoRA: new measure to avoid burnout on faces when using strong or multiple LoRAs. On by default.
-- Biggest face: inpaints only the largest face on generation, no more abominable body horrors on armpits and breasts, also helps with crowdy pictures. On by default.
-- Now only first and last generation of each cycle will be saved to Txt2img output folder by default. All the other steps will be stored in Img2img folder.
+![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/38c0bed6-84b0-43c5-adf7-14a169b4caf6)
+  
 
-![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/d71d32c0-b5fb-4073-83a7-e244fa8f1073)
 
+## _Coming in 1.0:_
+- Release as full extension.
+- ControlNet integration.
+- More face recognition models (including anime-friendly) 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/798a92e9-0105-4b39-85b6-5b89048a108e)
 
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/2b60ba4f-86af-4c53-a4f3-2d85d3f03e10)
 
-## _Algorithm itself:_
-- Txt2img generation in chosen resolution
-- High-res fix (default: x1.2 on 0.55 denoising strength) to boost details and gain sharpness
-- [Optional, "on" by default] Filtering with chosen strength (default: 0.5, less is better for realistic or smooth-rendered images)
-- [Optional, "off" by default] Automatic inpainting of face and eyes with chosen parameters (default: 0.2 denoising strength)
-- Img2img (default: x1.5 from first generation on 0.3 denoising strength)
-- Automatic inpainting of face and eyes with chosen parameters (default: 0.2 denoising strength)
-
-## _Future functions, feel free to wait or suggest your code:_
-- Adding anime face recognition model (sadly, it will kinda break or make it less time efficient to upscale eyes)
-- More elegant implementation for img2img (it works just fine now, but the inteface is the same when it should be different)
-- Add automatic head area hightlighting with added contrast and brightness
-- Move information from terminal to textbox in WebUI
-- ControlNet fixation of first/second generation to preserve shapes through upscale better
-- Selecting flat color for init image, would be great in achieving darker pictures with black or grey init, as well as setting color theme of image
-- Integration of postprocessing extras upscale and custom effects, such as noise, vignette or watermarks
-  
 ![image](https://github.com/alexv0iceh/AutoChar/assets/74978526/4da581ed-3e00-4abc-88e3-f41710f37cee)
-
-## _Known issues, also feel free to suggest your fixes:_
-- Poor for using on anime arts, can't detect faces on them
-- Doesn't pick up your selected Styles from menu automatically, you need to APPLY them to prompt first
-- Don't select 4x-UltraSharp upscaler if you don't have one (if so, get it here https://mega.nz/folder/qZRBmaIY#nIG8KyWFcGNTuMX_XNbJ_g)
-
-## _Coming in 1.0:_
-- Release as full extension.
-- Full Img2Img support.
-- ControlNet integration.
-- More parameters for advanced users.
