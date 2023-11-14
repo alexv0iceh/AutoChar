@@ -29,7 +29,7 @@ Also I highly recommend to download 4x-UltraSharp Upscaler (https://mega.nz/fold
 - Additional **Advanced options**!
 -	Brand new **Really Advanced options** tab for brave enthusiasts willing to take complete control of AutoChar's generation pipeline and maximize their creativity
 - Various fixes:
-  - Fixed infamous bug with OpenCV on inpaint step
+  - Fixed infamous bug with OpenCV on inpaint step (If you STILL have it, do this: https://github.com/AUTOMATIC1111/stable-diffusion-webui/issues/11727#issuecomment-1632550894 )
   -	Fixed inpaint only masked padding, drastically improving results on some artstyles and checkpoints
   -	Fixed High-Res Fix upscalers' list, now it shows all available upscalers as it should
   -	Styles from Styles Menu are now working properly
